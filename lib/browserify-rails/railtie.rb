@@ -27,12 +27,12 @@ module BrowserifyRails
     if config.respond_to?(:assets)
       config.assets.configure do |env|
         load_granular_configuration
-        env.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+        env.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor unless Rails.env.staging?
       end
     else
       initializer :setup_browserify do |app|
         load_granular_configuration
-        app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+        app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor unless Rails.env.staging?
       end
     end
 

@@ -30,7 +30,7 @@ module BrowserifyRails
       configuration = YAML::load(File.read(filename)) if File.exist? filename
       config.browserify_rails.granular = configuration || {}
 
-      app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+      app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor unless Rails.env.staging?
     end
 
     rake_tasks do
